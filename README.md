@@ -3,7 +3,7 @@ Small PowerShell Skript which shows AD-Group Memberships as a Tree of Users and 
 
 ```
 Usage:
-Just Pipe the Output of builtin Get-ADGroup CMDlet to this skript
+Just Pipe the Output of builtin Get-ADGroup CMDlet to this function
 Get-ADGroup -Identity "testgroup" | ADGroup-Tree
 
 Example-Output:
