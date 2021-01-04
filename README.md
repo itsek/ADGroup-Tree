@@ -1,6 +1,7 @@
 # ADGroup-Tree
 Small PowerShell Skript which shows AD-Group Memberships as a Tree of Users and Groups and traverses the List down recursively
 
+```
 Usage:
 Just Pipe the Output of builtin Get-ADGroup CMDlet to this skript
 Get-ADGroup -Identity "testgroup" | .\ADGroup-tree.ps1
@@ -21,3 +22,4 @@ PS C:\Users\me\>Get-ADGroup -Identity "testgroup" | .\ADGroup-tree.ps1
            |--- Group testgroup_sub_sub2
                 |    Members of CN=testgroup_sub_sub2,OU=Groups,DC=company,DC=local
                 |--- User Simpson, Lisa
+```
