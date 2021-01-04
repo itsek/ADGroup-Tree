@@ -1,25 +1,27 @@
-﻿[cmdletbinding()]
-param (
-    [parameter(ValueFromPipeline)]
-    $Groupname = "",
-    $Depth = " "
-)
+function ADgroup-Tree {
     
-$Members = Get-ADObject -Identity $Groupname -Properties Member | Select-Object -ExpandProperty Member | Sort-Object -Property @{expr={(Get-ADObject -Identity $_).ObjectClass}; desc=$true}
-$Depth = $Depth.Insert(0,"     ")
-Write-Host "$Depth|    Members of $($Groupname)" -ForegroundColor Green
+    [cmdletbinding()]
+    param (
+        [parameter(ValueFromPipeline)]
+        $Groupname = "",
+        $Depth = " "
+    )
+    
+    $Members = Get-ADObject -Identity $Groupname -Properties Member | Select-Object -ExpandProperty Member | Sort-Object -Property @{expr={(Get-ADObject -Identity $_).ObjectClass}; desc=$true}
+    $Depth = $Depth.Insert(0,"     ")
+    Write-Host "$Depth|    Members of $($Groupname)" -ForegroundColor Green
 
-Foreach ($Member in $Members) {
+    Foreach ($Member in $Members) {
 
-    $Object = Get-ADObject -Identity $Member 
+        $Object = Get-ADObject -Identity $Member 
 
-    if ($Object.ObjectClass -eq "user") {
-        Write-Host "$Depth|--- User $($Object.Name)"
-    }
+        if ($Object.ObjectClass -eq "user") {
+            Write-Host "$Depth|--- User $($Object.Name)"
+        }
 
-    elseif ($Object.ObjectClass -eq "group") {
-        Write-Host "$Depth|--- Group $($Object.Name)" 
-        Get-GroupMembersRecursively -Groupname $Object.DistinguishedName -Depth $Depth
-        
+        elseif ($Object.ObjectClass -eq "group") {
+            Write-Host "$Depth|--- Group $($Object.Name)" 
+            ADgroup-Tree -Groupname $Object.DistinguishedName -Depth $Depth
+        }
     }
 }
