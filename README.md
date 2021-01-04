@@ -4,10 +4,10 @@ Small PowerShell Skript which shows AD-Group Memberships as a Tree of Users and 
 ```
 Usage:
 Just Pipe the Output of builtin Get-ADGroup CMDlet to this skript
-Get-ADGroup -Identity "testgroup" | .\ADGroup-tree.ps1
+Get-ADGroup -Identity "testgroup" | ADGroup-Tree
 
 Example-Output:
-PS C:\Users\me\>Get-ADGroup -Identity "testgroup" | .\ADGroup-tree.ps1
+PS C:\Users\me\>Get-ADGroup -Identity "testgroup" | ADGroup-Tree
       |    Members of CN=testgroup,OU=Groups,DC=company,DC=local
       |--- User Clinton, Bill
       |--- User Dole, Bob
